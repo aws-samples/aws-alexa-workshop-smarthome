@@ -1,0 +1,22 @@
+{
+  "name": "aws-alexa-smart-lamp-backend",
+  "version": "1.0.0",
+  "description": "An Alexa-enabled Smart Lamp backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joe SHI <qiaoshi@amazon.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "jwk-to-pem": "^2.0.1",
+    "node-fetch": "^2.6.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.507.0",
+    "mocha": "^6.2.0",
+    "serverless-plugin-include-dependencies": "^3.2.1"
+  }
+}
