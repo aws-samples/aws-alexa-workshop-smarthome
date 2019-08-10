@@ -21,14 +21,9 @@ Use all AWS resources in N.Virginia region (us-east-1).
 1. [Test Skill](docs/test-skill.md)
 
 
-## Regions
+## Tips
 
-Custom Skill:
-https://developer.amazon.com/docs/custom-skills/host-a-custom-skill-as-an-aws-lambda-function.html
-
-
-Smart Home Skill:
-
+**Smart Home Skill Regions**
 * N.Virginia for English (US) or English (CA) skills
 * EU (Ireland) region for English (UK), English (IN), German or French (FR) skills
 * US West (Oregon) for Japanese and English (AU) skills.

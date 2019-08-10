@@ -5,9 +5,9 @@
 
 1. Make sure your smart lamp simulator is running
 
-1. Try speak "Alexa, turn on <device-friendly-name>" to Alexa App
+1. Try speak `Alexa, turn on <device-friendly-name>` to Alexa App
 
-1. Try speak "Alexa, turn off <device-friendly-name>" to Alexa App
+1. Try speak `Alexa, turn off <device-friendly-name>` to Alexa App
 
 1. Check you smart lamp simulator output
 
@@ -27,3 +27,9 @@ Put one lamp in each room, and try **Alexa, turn on the Lamp in bedroom**.
 
 1. Edit friendly name of device
 
+
+## Standard Smart Light device (Optional)
+
+Now the Smart Lamp is considered as an "Other" device in Alexa. 
+Modify the code to make the lamp can be recognized as a standard Alexa-Enabled light. 
+If so, you can control the Light device by tap the Lamp' ON/OFF button in Alexa App.
