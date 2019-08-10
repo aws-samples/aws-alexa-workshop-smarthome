@@ -1,0 +1,17 @@
+const describe = require('mocha').describe;
+const { decodeToken } = require('../auth');
+
+const token = "eyJraWQiOiI1RGFKWk82UThweTFuRFg5T2gzdnJsd1phNXpJTWltUW9sUDNEZnVYQ2djPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIwNmZmY2E1YS04NWYyLTRjN2ItODE2Yi1lYmYwNjY3YmMzNjkiLCJldmVudF9pZCI6IjMwZmIxYzE4LWQ5MDItNGNkZi1iNTIwLTBmNTBmNmRiMmM0MyIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE1NjU0MzU0OTksImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy13ZXN0LTIuYW1hem9uYXdzLmNvbVwvdXMtd2VzdC0yX1FmVHZvUHh4eCIsImV4cCI6MTU2NTQzOTEwMSwiaWF0IjoxNTY1NDM1NTAxLCJqdGkiOiIzMmRhMmQ0NC1jOTgyLTRhMTItYWIwMy1iYjI5MzIxNGE0YTUiLCJjbGllbnRfaWQiOiI0bjZqam1lMWlsbXM4anNxNmk4cXBhaXVmNiIsInVzZXJuYW1lIjoiMDZmZmNhNWEtODVmMi00YzdiLTgxNmItZWJmMDY2N2JjMzY5In0.f5F2sy7RcWwcErM2KlhkHKmMNWnGKJLB9ScZxFoPD2xW3dGYPPZW_PB42oqTyHAYYcaoMOrjOo9q3bXjZtBdTtWPHZPVRLf7LvUcVvBmcN3I0rbhminDbsr8a0u_oxuU2EImU604jVrIaf3mFwzmv7Lc5vlqsSJgIqiIZ2uKmp7Yf-ZZIT7RRdvgXmKtWFXY469X0FeyIBn0sV_bcFj1kADs2r0X2183OsnNvlxvwUF1zXM3pkzYBrItsfWdViD8qLZUt9AWfBeVWJP-JCU96LGsO6dtzIyUlFTL7g28nycng_qpYNSf3M6JhCKTwcoygTLQCn6ns0sEctD83O4BqA"
+
+describe('AlexaHandler', function() {
+  describe('TestIndex', function () {
+
+    it('Test the decodeToken', async function () {
+
+      const payload = await decodeToken(token);
+
+      console.log(payload);
+
+    });
+  })
+});

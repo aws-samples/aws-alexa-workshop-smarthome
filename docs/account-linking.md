@@ -1,7 +1,8 @@
-# AWS Cognito User Pool 实现 Alexa 账户关联
+# Alexa Account Linking using Amazon Cognito User Pool
 
-> 完成本实验预计使用1小时
-> 完成该实验需要可以一个已经注册好的 Alexa Skill, 并且能够在 Alexa App 或者 Alex Web Portal 中显示该 Alexa Skill。
+> TODO: add English brief description about what is Account Linking. Can copy from Alexa account linking doc.
+
+完成该实验需要可以一个已经注册好的 Alexa Skill, 并且能够在 Alexa App 或者 Alex Web Portal 中显示该 Alexa Skill。
 
 本文将介绍如何利用AWS Cognito User Pool 实现 Alexa 的账户关联。这里将不涉及到 Cognito 或者 Alexa 相关的开发。有关 Cognito User Pool 的更多资料请参考
 [官方文档](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)。
@@ -30,165 +31,105 @@ AWS的 [Cognito User Pool](https://docs.aws.amazon.com/zh_cn/cognito/latest/deve
 
 ![Flow](http://cdn.quickstart.org.cn/assets/alexa/account-linking/skill-interaction-flow.png)
 
-## 配置Cognito User Pool
-AWS Cognito User Pool提供了基于OAuth 2.0的实现，这里提供详细的Cognito User Pool的配置流程。
+## Configure App Client OAuth 2.0 Settings
 
-### 创建Cognito User Pool
-1. 打开 [Amazon Cognito Console](https://console.aws.amazon.com/cognito/home)。
+Account linking in the Alexa Skills Kit uses [OAuth 2.0](https://tools.ietf.org/html/rfc6749). 
+By default, OAuth 2.0 for App Client in Cognito User Pool is not enabled. Follow the following
+step to enable Auth2.0.
 
-2. 选择 **管理用户池**。
+1. Go to Cognito User Pool Console
 
-3. 在页面右上角，选择**创建用户池**。
+1. On the left side navigation bar, under App integration, select **App client settings**
 
-4. 为您的用户池指定一个名称，然后选择**查看默认值**以保存该名称。
+1. Find the App Client created in [Create a Cognito User Pool Client](#create-a-cognito-user-pool-client), if you
+followed the guide, it should be named `alexa`
 
-5. 在**属性**页面上，选择**电子邮件地址或电话号码**，然后选择**允许使用电子邮件地址**。
+1. Under **Enabled Identity Providers**，select **Cognito User Pool**
 
-6. 在页面底部，选择**下一步**以保存属性。
+1. In **Callback URL(s)**，enter **Redirect URLs** copied from Alexa Developer Console. In Alexa Developer Console,
+choose **Account Linking**, scroll down to the bottom, you should be able to find three **Redirect URL**. Alexa redirect 
+to different url based on user's region. To serve all the Alexa users, it is suggested to copy all the URLs.
 
-7. 在页面左侧的导航栏上，选择**审核**。
+1. In **Allowed OAuth Flows** session，choose **Authorization code grant**
 
-8. 在**审核**页面底部，选择**创建池**。
+1. In **Allowed OAuth Scopes** session，choose **openid**
 
-### 创建应用程序客户端
-您可以为用户池创建多个应用程序，通常一个应用程序对应于该应用程序的平台。在和Alexa的结合的
-场景中，Alexa是用户池的一个应用程序客户端。
+1. Click **Save changes**
 
-1. 在页面左侧的导航栏上，选择**应用程序客户端**。
+![](assets/configure-cup-oauth.png)
 
-2. 在**应用程序客户端**选项卡中，选择**添加应用程序客户端**
 
-3. 指定**应用程序客户端名称**
+## Configure Cognito User Pool domain name
 
-4. 指定应用程序的**刷新令牌的到期时间 (天)**。默认值是 30。
-您可以将其更改为 1 到 3650 之间的任何值。
+The default domain name of Cognito follows the pattern `https://<domain-prefix>.auth.<region>.amazoncognito.com`。
+You can use your own domain，to get more information please refer to 
+[Adding a Custom Domain to a User Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-add-custom-domain.html#cognito-user-pools-add-custom-domain-adding)。
+In this lab, we will use the default domain name.
 
-5. 在页面底部，选择**创建应用程序客户端**。
+1. Go to Cognito User Pool Console
 
-### 配置应用程序客户端 OAuth 2.0 设置
-默认情况下应用程序客户端的 OAuth 2.0 是不开放的，按照以下步骤，打开客户端的 OAuth 2.0 认证与授权。
+1. On the left side bar, under **App integration**, choose **Domain name**
 
-1. 在页面左侧的导航栏上，选择**应用程序客户端设置**。
+1. Enter domain prefix and click **Check availability**, the domain name must be unique
 
-2. 找到刚才创建的应用程序客户端。
+1. When promoted **the domain is available**，choose **Save changes**
 
-3. 在**启用身份提供商**中，选择 **Cognito User Pool** 。
+![](assets/cognito-domain.png)
 
-4. 在**回调 URL** 中，指定 Alexa Kill 的 **Redirect URLs**。
 
- > 在 Alexa Console 中选择需要配置的 Alexa Skill, 在左侧页面导航栏选择 **Account Linking**, 网页底部找到的 **Redirect URLs**。 
- 
- > Alexa 根据用户在哪里注册的设备，跳转到不同的URL, 为了服务所有Alexa用户，建议将三个Redirect URL都填入Cognito，点击查看[更多信息](https://developer.amazon.com/docs/account-linking/configure-authorization-code-grant.html#redirect-url-values)
+## Configure Account Linking in Alexa Developer Console
 
- ![Redirect Urls](http://cdn.quickstart.org.cn/assets/alexa/account-linking/redirect-urls.png)
+1. Go to [Alexa Console](https://developer.amazon.com/alexa/console/ask)
 
-5. 在**允许的 OAuth 流程**中，选择 **Authorization code grant**。
+1. In the **Skills** list，choose the previously created skill
 
-6. 在**许的 OAuth 范围**中，至少选择 **openid**。
+1. On the left side navigation bar，choose **Account Linking**
 
-7. 选择**保存修改**。
+1. Under **Security Provider Information**，choose **Auth Code Grant**
 
- ![OAuth 2.0配置](http://cdn.quickstart.org.cn/assets/alexa/account-linking/enable-oauth.png)
+1. Enter `https://<your-cognito-domain>/oauth2/authorize` in **Authorization URI**
 
-### 配置 Cognito User Pool 认证域名
-Cognito 域名是 Alexa 进行 OAuth2.0 认证时的跳转域名。默认的域名为`https://<domain-prefix>.auth.<region>.amazoncognito.com`。
-您可以配置自己的域名，关于如何配置自己的域名，请参考[将自定义域添加到用户池](https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/cognito-user-pools-add-custom-domain.html)。
-本文将使用AWS提供的默认域名。
+1. Enter `https://<your-cognito-domain>/oauth2/token` in **Access Token URI**
 
-1. 在页面左侧的导航栏上，选择**域名**。
+1. Enter **Client ID** and **Client Secret**, you can find in them in Cognito User Pool console, under **App Clients** section
+![](assets/find-client-credentials.png)
 
-2. 指定**您的域名**，选择**检查可用性**。
+1. Click **Add scope** and input `openid`. For Smart Home skill, at least one scope should be specified
 
-3. 当提示为**此域可用**后，选择**保存更改**。
+1. Click **Save** on the top right corner
+![](assets/configure-alexa-account-linking.png)
 
- ![域名](http://cdn.quickstart.org.cn/assets/alexa/account-linking/cognito-domain.png)
+For more about Cognito OAuth2.0 URI, please refer to 
+[Amazon Cognito User Pools Auth API Reference](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html)
 
-> 请记录 Cognito User Pool 的认证域名，可以使用默认域名或者自己的域名，在后续的Alexa配置中需要使用。
+## Enable Account Linking in Alexa App
 
-### 配置 Amazon Cognito认证UI（可选）
-Amazon Cognito提供默认的UI, 如下图:
+> Only the Developer Account can see the Skill in development. You must use the same account as creating
+> the skill. You may also need a VPN to use the Alexa APP if you are in China.
 
- ![默认UI](http://cdn.quickstart.org.cn/assets/alexa/account-linking/cognito-UI.png)
+1. Launch Alexa APP on mobile phone, or using [Alexa Web Portal](https://alexa.amazon.com/spa/index.html). 
+You probably may not be able to see the skills in Web Portal, so it it recommended to use Alexa APP 
 
-可以根据[自定义内置登录网页和注册网页](https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/cognito-user-pools-app-ui-customization.html)
-修改登录的页面。如果不希望使用Cognito提供的登录和注册页面，也可以根据API自己实现。
+1. Click the button on the top left corner
 
-## 配置Alexa Account Linking
-此章节将配置Alex Account Linking, 这里假设已经创建了一个*Alexa SkillSet*或者*Alexa SmartHome Skill*。
+1. Choose **Skills & Games** 
 
-1. 登录[Alexa 控制台](https://developer.amazon.com/alexa/console/ask)。
+1. On **Skills & Games** page，click the **Enabled** dropdown list and choose **DEV**, you should be able
+the created Smart Home Skill
 
-2. 在 **Skills** 列表页中，选择需要做账户关联的技能。
+1. Click the **Enable To Use** button, 
 
-3. 在左侧页面导航栏中，选择 **Account Linking**。
+1. On the popup window, input your **email** and **password**, if have not registered yet, sign up one
 
-4. 打开"是否允许账号"的开关。
+1. Account Link success
+![](assets/account-linking-success.jpeg)
 
-5. 在 **Security Provider Information** 中，选择 **Auth Code Grant**。
+So far, the account linking between Alexa and Cognito User Pool has been configured successfully. In 
+the following directives sending from Alexa, it will contain **accessToken** in the message body. 
+The **accessToken** follows the JWT spec. In the backend Lambda, you can verify and decode the JWT token
+to get the user identity.
 
-6. 在 **Authorization URI** 中，指定 `https://<your-cognito-domain>/oauth2/authorize`。
-
-7. 在 **Access Token URI** 中，指定 `https://<your-cognito-domain>/oauth2/token`。
-
-8. 在 **Client ID** 中，指定 Cognito 应用程序客户端的**应用程序客户端 ID**。
-
- > 在**Cognito控制台**左侧选择**应用程序客户端**, 点击**显示详细信息**，可以查看**应用程序客户端 ID**和**应用程序客户端密钥**。
-
- ![App Client](http://cdn.quickstart.org.cn/assets/alexa/account-linking/app-client.png)
-
-9. 在**Client Secret**，指定Cognito应用程序客户端的**应用程序客户端密钥**。
-
- ![Alexa Account Linking](http://cdn.quickstart.org.cn/assets/alexa/account-linking/alexa-account-linking.png)
-
-10. 在页面左上角，选择**Save**。
-
-11. （可选）如果是 Custom Skill, 需要重新 Build Skill。选择左侧页面导航栏中的 **CUSTOM**, 选择 **Invocation**, 
-点击 **Build Model** 按钮，等待 **Build Success** 的提示。
-
-关于更多 Cognito OAuth2.0 的 URI, 请参考[Amazon Cognito 用户池 Auth API 参考](https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html)
-
-## 在Alexa App中绑定用户身份
-
-### 创建测试用户
-
-1. 打开 [Amazon Cognito Console](https://console.aws.amazon.com/cognito/home)。
-
-2. 选择刚才创建的用户池。
-
-3. 在页面左侧导航栏中，选择**用户和组**。
-
-4. 选择**创建用户**，并指定**用户名**, **临时密码**, **电话号码**及**电子邮件**，并选择创建用户。
-
- ![测试用户](http://cdn.quickstart.org.cn/assets/alexa/account-linking/demo-user.png)
-
-### 账户关联
-
- > Alexa APP的登录账号，必须和登录Alexa Developer控制台的账号相同，才能看见开发中的Alexa技能。
-
-1. 在手机上打开 Alexa APP, 或者使用 [Alexa Web Portal](https://alexa.amazon.com/spa/index.html)。
-
-2. 在 APP 左上角，选择"汉堡"按钮。
-
-3. 在左侧导航栏页面中，选择 **Skills**。
-
-4. 在 **All Skills** 页面右上角，选择 **Your Skills**。
-
-5. 在 **Your Skills** 页面，选择 **DEV SKILLS**, 此处将列出所有开发中的技能。
-
-6. 选择创建的 Alexa 技能，在详情页，选择 **Enable**。如果已经显示为 **Enable**，可以先选择 **Disable** 之后，再次 **Enable**。
-
-7. 在弹出的登录页面中，输入 Cognito User Pool 中用户账号和密码。
-
-8. (可选) Cognito User Pool 在第一次登录之后，需要修改初始密码。
-
-9. 账户关联成功。
-
- ![](http://cdn.quickstart.org.cn/assets/alexa/account-linking/link-success.png)
-
-此时，账号已经关联成功，Alexa 在后续发送给 HTTP Endpoint 或者 AWS Lambda 的消息体中均会包含用户的 **accessToken**, 
-该 **accessToken** 为 JWT 格式。Alexa 发送的 JWT token 中的 **sub** 字段就是 Cognito User Pool 中的用户名。
-
-## 更多阅读
+## Reference
 [Understand Account Linking](https://developer.amazon.com/docs/account-linking/understand-account-linking.html)
 
 [The OAuth2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749)
