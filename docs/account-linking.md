@@ -1,41 +1,39 @@
 # Alexa Account Linking using Amazon Cognito User Pool
 
-> TODO: add English brief description about what is Account Linking. Can copy from Alexa account linking doc.
+This article describes how to create **Account Linking** between developer's account 
+system and Amazon account system. In this case, Amazon Cognito User Pool will be
+used as the developer's account system. By using it, developer can quickly create 
+Account Linking between their account and Amazon account without writing one line of code. 
 
-完成该实验需要可以一个已经注册好的 Alexa Skill, 并且能够在 Alexa App 或者 Alex Web Portal 中显示该 Alexa Skill。
+For more information about Amazon Cognito User Pool, please refer to the 
+[developer guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html).
 
-本文将介绍如何利用AWS Cognito User Pool 实现 Alexa 的账户关联。这里将不涉及到 Cognito 或者 Alexa 相关的开发。有关 Cognito User Pool 的更多资料请参考
-[官方文档](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)。
-有关Alexa的开发资料请参考 [Alexa Developer Portal](https://developer.amazon.com/alexa)。
+## What is Account Linking
 
-## 什么是账户关联
-账户关联(Account Linking)允许将用户在Alexa账号系统中的身份与另外一个账号系统中的身份关联起来。
-假设这样的一个问题，系统X中存在用户a和用户b, Alexa 账户体系中存在用户A和用户B, 那么系统X收到来自
-Alexa的指令后，如何区分这是来自用户a的请求还是用户b的呢？账户关联就是为了解决这个问题，将Alexa的账户
-系统与另一个账号系统中的身份关联起来。
+The following is an explanation from [Alexa Docs](https://developer.amazon.com/docs/account-linking/understand-account-linking.html#account-linking-and-the-skill-model)
 
-Alexa账户关联是标准的 OAuth2.0 授权, 本文不深入探讨 OAuth2.0, 有关 OAuth2.0 的理解可以参考
-[理解OAuth 2.0](http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html)。
-
-AWS的 [Cognito User Pool](https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/cognito-user-identity-pools.html)提
-供了标准的 OAuth 2.0 的认证和授权，因此借助 Cognito User Pool 可以快速实现和 Alexa 的账户关联。
-
-下面这张流程图展示了一个用户在 Alexa APP 中进行账户关联，Alexa 是如何从授权服务器获得 AccessToken 的整个过程。
-
-![Auth-Code-Flow](http://cdn.quickstart.org.cn/assets/alexa/account-linking/auth-code-flow.png)
-
-在完成 Alexa 的账户关联之后，用户与 Skill 交互产生的指令会被发送到 Resource Server, 该指令中包含用户的 AccessToken。
-这里的 Resource Server 就是 Alexa Kill 控制中配置的 [**Endpoint**](https://developer.amazon.com/zh/docs/custom-skills/host-a-custom-skill-as-a-web-service.html)。
-
-在 Resource Server 上，通过 Decode AccessToken, 能够获得用户名。
-
-![Flow](http://cdn.quickstart.org.cn/assets/alexa/account-linking/skill-interaction-flow.png)
-
-## Configure App Client OAuth 2.0 Settings
+> You would use account linking if your skill needs personalized data from another system. 
+> For example, suppose you own a web-based service "Car Fu" that lets users order taxis. 
+> A custom skill that lets users access "Car Fu" by voice would be very useful. For example, 
+> "Alexa, ask "Car Fu" to order a taxi." Completing this request requires the skill to access 
+> your "Car Fu" service as a specific "Car Fu" user for profile and payment information. Therefore, 
+> you need a link between the Amazon account used with the Alexa device and the "Car Fu" account 
+> for the user.
 
 Account linking in the Alexa Skills Kit uses [OAuth 2.0](https://tools.ietf.org/html/rfc6749). 
 By default, OAuth 2.0 for App Client in Cognito User Pool is not enabled. Follow the following
-step to enable Auth2.0.
+step to enable Auth2.0. 
+
+The following diagram explains the flow of obtain an **AccessToken** from your OAuth2.0 system.
+
+![Auth-Code-Flow](assets/auth-code-flow.png)
+
+Alexa will send all the subsequent directives together with **AccessToken**. In the Lambda
+backend, the program should verify and decode the **AccessToken** to get user related information.
+
+![Flow](assets/skill-interaction-flow.png)
+
+## Configure App Client OAuth 2.0 Settings
 
 1. Go to Cognito User Pool Console
 

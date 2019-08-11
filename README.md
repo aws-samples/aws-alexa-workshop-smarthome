@@ -2,13 +2,21 @@
 In this lab, you will learn how to build a virtual Alexa-Enabled
 Smart Lamp using various AWS Services.
 
-Use all AWS resources in N.Virginia region (us-east-1).
-
-> TODO: adding description about the architect.
+For the first time rung this lab, please use all AWS resources in 
+N.Virginia region (us-east-1).
 
 ![](docs/assets/alexa-workshop-arch.jpg)
 
+The above is the overall architect of this Lab. In this lab, you will create:
+
+* A virtual Alexa-Enabled Smart Home Lamp
+* A device binding system using AppSync, Cognito User Pool, Lambda, DynamoDB
+* An Alexa backend which handles directives from Alexa and control the power status 
+of Lamp via IoT Core
+
 ## Table of Contents
+
+Please following the steps to build your first Alexa-Enabled Lamp.
 
 1. [Create a Web Interface to bind Smart Lamp to user](https://github.com/lab798/aws-alexa-workshop-ui)
 1. [Setup Smart Lamp Simulator](https://github.com/lab798/aws-alexa-workshop-smarthome-lamp)
@@ -22,6 +30,9 @@ Use all AWS resources in N.Virginia region (us-east-1).
 
 
 ## Tips
+
+You must strictly follow the Alexa language and AWS Lambda region specs. Otherwise,
+you will not be able to receive directives from Alexa. 
 
 **Smart Home Skill Regions**
 * N.Virginia for English (US) or English (CA) skills
