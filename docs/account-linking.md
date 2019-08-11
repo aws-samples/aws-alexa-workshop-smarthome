@@ -21,9 +21,6 @@ The following is an explanation from [Alexa Docs](https://developer.amazon.com/d
 > for the user.
 
 Account linking in the Alexa Skills Kit uses [OAuth 2.0](https://tools.ietf.org/html/rfc6749). 
-By default, OAuth 2.0 for App Client in Cognito User Pool is not enabled. Follow the following
-step to enable Auth2.0. 
-
 The following diagram explains the flow of obtain an **AccessToken** from your OAuth2.0 system.
 
 ![Auth-Code-Flow](assets/auth-code-flow.png)
@@ -34,6 +31,9 @@ backend, the program should verify and decode the **AccessToken** to get user re
 ![Flow](assets/skill-interaction-flow.png)
 
 ## Configure App Client OAuth 2.0 Settings
+
+By default, OAuth 2.0 for App Client in Cognito User Pool is not enabled. Follow the following
+step to enable Auth2.0. 
 
 1. Go to Cognito User Pool Console
 

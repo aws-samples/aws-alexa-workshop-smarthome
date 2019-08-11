@@ -5,6 +5,11 @@ Make sure you've selected the right region
 * EU (Ireland) region for English (UK), English (IN), German or French (FR) skills
 * US West (Oregon) for Japanese and English (AU) skills.
 
+If you are familiar with [Serverless Framework](https://serverless.com/), you can 
+go direct to [Deploy via Serverless Framework](#deploy-via-serverless-framework) 
+section. However, it is recommended to follow the manual deployment procedure
+for the first time.
+
 ## Create Lambda Execution Role
 
 1. Go to IAM Console, click **Create Role**
@@ -64,10 +69,10 @@ to CloudWatch.
 1. Go to Lambda Console, click **Create function**
 
 1. Select Author from scratch, and enter the following information:
-* Name: Provide a name for your Lambda function, should be same 
-* Runtime: To use the sample code provided in this topic, choose Node.js 10.x
-* For Role, select a role [you previously created](#create-lambda-execution-role)
-![](assets/create-lambda-1.png)
+    - Name: Provide a name for your Lambda function, should be same 
+    - Runtime: To use the sample code provided in this topic, choose Node.js 10.x
+    - Role: select a role [you previously created](#create-lambda-execution-role)
+    ![](assets/create-lambda-1.png)
 
 1. Click **Create Function**. Your function should be created and you will move to **Configuration**
 
@@ -97,7 +102,7 @@ these files/directories should be located at the root level of the zip file
 
 1. Under **Function code**, click **Upload** to upload the zip file
 
-## Serverless Framework deployment
+## Deploy via Serverless Framework
 
 All of the above settings in this section including Lambda execution role, permission, code, 
 Alexa Smart Home SKill can be configured using [Serverless Framework](https://serverless.com/). 
