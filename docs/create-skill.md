@@ -18,5 +18,5 @@ select **Provision your own**
 
 When completed, you should be at the configuration page for a newly created **SmartLamp** page.
 In the Smart Home service endpoint section, locate the Your Skill ID value and click the 
-**Copy to clipboard** link to copy and then paste the Alexa Skill Application ID in a text file.
+**Copy to clipboard** link to copy and then paste it in a text file.
 The **Skill Id** will be used later.
