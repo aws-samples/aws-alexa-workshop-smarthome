@@ -28,4 +28,4 @@ you can control the device through voice. Example utterance like:
     - Alexa, turn off the <device-friendly-name>
 
 
-Next, [Test Skill](./test-skill.md)
+Next, [Test Smart Home Skill](./test-skill.md)

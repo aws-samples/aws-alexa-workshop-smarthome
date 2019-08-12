@@ -137,4 +137,4 @@ to get the user identity.
 [AWS Cognito User Pool](https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/cognito-user-identity-pools.html)
 
 
-Next, [Setup the Lambda Function](./create-lambda.md).
+Next, [Create the Alexa backend Lambda](./create-lambda.md).

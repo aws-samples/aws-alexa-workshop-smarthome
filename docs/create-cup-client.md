@@ -1,4 +1,4 @@
-# Create a client in Cognito User Pool
+# Create an App client in Cognito User Pool
 
 ## Create Cognito User Pool
 

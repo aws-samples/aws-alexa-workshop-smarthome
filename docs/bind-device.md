@@ -1,4 +1,4 @@
-# Bind Device to User 
+# Bind Smart Lamp to User 
 
 Scan the QR Code shipped with the virtual Smart Lamp to create binding
 relationship between device and user.
