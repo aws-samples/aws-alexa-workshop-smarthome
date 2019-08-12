@@ -20,3 +20,5 @@ When completed, you should be at the configuration page for a newly created **Sm
 In the Smart Home service endpoint section, locate the Your Skill ID value and click the 
 **Copy to clipboard** link to copy and then paste it in a text file.
 The **Skill Id** will be used later.
+
+Next, [Create Client in Cognito User Pool](./create-cup-client.md)

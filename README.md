@@ -18,6 +18,8 @@ of Lamp via IoT Core
 
 Please following the steps to build your first Alexa-Enabled Lamp.
 
+**Before your start the lab, Git clone this lab to local.**
+
 1. [Create a Web Interface to bind Smart Lamp to User](https://github.com/lab798/aws-alexa-workshop-ui)
 1. [Setup Smart Lamp Simulator](https://github.com/lab798/aws-alexa-workshop-smarthome-lamp)
 1. [Bind Smart Lamp to user](docs/bind-device.md)

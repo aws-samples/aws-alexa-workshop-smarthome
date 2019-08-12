@@ -39,7 +39,7 @@ step to enable Auth2.0.
 
 1. On the left side navigation bar, under App integration, select **App client settings**
 
-1. Find the App Client created in [Create a Cognito User Pool Client](#create-a-cognito-user-pool-client), if you
+1. Find the App Client created in [Create a Cognito User Pool Client](./create-cup-client.md), if you
 followed the guide, it should be named `alexa`
 
 1. Under **Enabled Identity Providers**，select **Cognito User Pool**
@@ -111,10 +111,11 @@ For more about Cognito OAuth2.0 URI, please refer to
 
 1. Choose **Skills & Games** 
 
-1. On **Skills & Games** page，click the **Enabled** dropdown list and choose **DEV**, you should be able
-the created Smart Home Skill
+1. On **Skills & Games** page，click the **DEV** in the sliding window. 
 
-1. Click the **Enable To Use** button, 
+1. Your created Smart Home Skill **SmartLamp** should be listed below. Click it to continue.
+
+1. Click the **Enable To Use** button
 
 1. On the popup window, input your **email** and **password**, if have not registered yet, sign up one
 
@@ -134,3 +135,6 @@ to get the user identity.
 [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token)
 
 [AWS Cognito User Pool](https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/cognito-user-identity-pools.html)
+
+
+Next, [Setup the Lambda Function](./create-lambda.md).
