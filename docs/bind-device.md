@@ -17,7 +17,7 @@ have one
 
 1. Refresh the page to check if the button's status has changed to **Unbind**
 
-1. Go to DynamoDB Console to check the item in table
+1. Go to [DynamoDB Console](https://console.aws.amazon.com/dynamodb/home?region=us-east-1) to check the item in table named 'Device-xxxxxxx'.
 
 The above could be one of the ways to create relationship between devices and users.
 Alexa does not have requirement for this. It is your own responsibility to design
