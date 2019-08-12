@@ -105,8 +105,7 @@ For more about Cognito OAuth2.0 URI, please refer to
 > Only the Developer Account can see the Skill in development. You must use the same account as creating
 > the skill. You may also need a VPN to use the Alexa APP if you are in China.
 
-1. Launch Alexa APP on mobile phone, or using [Alexa Web Portal](https://alexa.amazon.com/spa/index.html). 
-You probably may not be able to see the skills in Web Portal, so it it recommended to use Alexa APP 
+1. Launch Alexa APP on mobile phone
 
 1. Click the button on the top left corner
 
