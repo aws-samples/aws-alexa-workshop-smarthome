@@ -1,4 +1,4 @@
-# Create a client in Cognito User Pool
+# Create an App client in Cognito User Pool
 
 ## Create Cognito User Pool
 
@@ -44,3 +44,4 @@ could be considered as a client.
 ![](assets/create-cup-client.png)
 
 
+Next, [Configure Account Linking Settings](./account-linking.md)

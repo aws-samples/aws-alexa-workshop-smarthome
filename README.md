@@ -18,15 +18,17 @@ of Lamp via IoT Core
 
 Please following the steps to build your first Alexa-Enabled Lamp.
 
+**Before your start the lab, Git clone this lab to local.**
+
 1. [Create a Web Interface to bind Smart Lamp to User](https://github.com/lab798/aws-alexa-workshop-ui)
 1. [Setup Smart Lamp Simulator](https://github.com/lab798/aws-alexa-workshop-smarthome-lamp)
-1. [Bind Smart Lamp to user](docs/bind-device.md)
+1. [Bind Smart Lamp to User](docs/bind-device.md)
 1. [Create Smart Home Skill in Alexa Developer Console](docs/create-skill.md)
-1. [Create Client in Cognito User Pool](docs/create-cup-client.md)
+1. [Create an App Client in Cognito User Pool](docs/create-cup-client.md)
 1. [Configure Account Linking Settings](docs/account-linking.md)
-1. [Setup the Lambda Function](docs/create-lambda.md)
-1. [Run Device Discovery](docs/device-discovery.md)
-1. [Test Skill](docs/test-skill.md)
+1. [Create the Alexa backend Lambda](docs/create-lambda.md)
+1. [Discover Smart Home Devices](docs/device-discovery.md)
+1. [Test Smart Home Skill](docs/test-skill.md)
 
 
 ## Tips

@@ -1,4 +1,4 @@
-# Create a Smart Home Skill
+# Create Smart Home Skill in Alexa Developer Console
 
 1. In a web browser to the [Alexa Skills Kit Developer Console](https://developer.amazon.com/alexa/console/ask). 
 If not already authenticated, you may have to Sign In with your Amazon Developer Account.
@@ -20,3 +20,5 @@ When completed, you should be at the configuration page for a newly created **Sm
 In the Smart Home service endpoint section, locate the Your Skill ID value and click the 
 **Copy to clipboard** link to copy and then paste it in a text file.
 The **Skill Id** will be used later.
+
+Next, [Create an App Client in Cognito User Pool](./create-cup-client.md)

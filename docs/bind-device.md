@@ -1,4 +1,4 @@
-# Bind Device to User 
+# Bind Smart Lamp to User 
 
 Scan the QR Code shipped with the virtual Smart Lamp to create binding
 relationship between device and user.
@@ -22,3 +22,5 @@ have one
 The above could be one of the ways to create relationship between devices and users.
 Alexa does not have requirement for this. It is your own responsibility to design
 the workflow.
+
+Next, [Create Smart Home Skill in Alexa Developer Console](./create-skill.md).

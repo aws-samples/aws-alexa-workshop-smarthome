@@ -118,3 +118,4 @@ After success deployment, you should be able to see a Lambda named
 `alexa-smarthome-{stage}-backend`.
 
 
+Next, [Discover Smart Home Devices](./device-discovery.md).
