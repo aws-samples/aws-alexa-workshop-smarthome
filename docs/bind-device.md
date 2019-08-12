@@ -13,7 +13,6 @@ have one
 1. Sign In and it will be navigated to **Device Binding** page
 
 1. Click the **Bind** button   
-
 ![](assets/ui-device-bind.png)
 
 1. Refresh the page to check if the button's status has changed to **Unbind**
