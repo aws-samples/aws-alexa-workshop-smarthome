@@ -87,6 +87,7 @@ later
 1. Click **Add** and then click **Save**
 
 ## Upload Code
+1. Firstly, you should git clone this repo
 
 1. Change directory to `src`
 
