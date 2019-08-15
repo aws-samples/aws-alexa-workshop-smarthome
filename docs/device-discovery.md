@@ -5,7 +5,7 @@ speak "Alexa, discover my smart home devices." to Echo/Alexa App or AVS devices.
 
 1. Open **Alexa App** or go to [Alexa Web Portal](https://alexa.amazon.com)
 
-1. Choose **Devices**, and then click add icon   
+1. Choose **Devices**, and then click **add icon**   
 ![](assets/discovery-1.jpg)
 
 1. Choose **Add Device**   
@@ -24,8 +24,8 @@ speak "Alexa, discover my smart home devices." to Echo/Alexa App or AVS devices.
 
 1. Click **Edit Name**, and input whatever your like. After you change the friendly name, 
 you can control the device through voice. Example utterance like:
-    - Alexa, turn on the <device-friendly-name>
-    - Alexa, turn off the <device-friendly-name>
+    - Alexa, turn on the `<device-friendly-name>`
+    - Alexa, turn off the `<device-friendly-name>`
 
 
 Next, [Test Smart Home Skill](./test-skill.md)

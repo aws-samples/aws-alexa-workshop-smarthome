@@ -127,6 +127,8 @@ the following directives sending from Alexa, it will contain **accessToken** in 
 The **accessToken** follows the JWT spec. In the backend Lambda, you can verify and decode the JWT token
 to get the user identity.
 
+Next, [Create the Alexa backend Lambda](./create-lambda.md).
+
 ## Reference
 [Understand Account Linking](https://developer.amazon.com/docs/account-linking/understand-account-linking.html)
 
@@ -135,6 +137,3 @@ to get the user identity.
 [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token)
 
 [AWS Cognito User Pool](https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/cognito-user-identity-pools.html)
-
-
-Next, [Create the Alexa backend Lambda](./create-lambda.md).

@@ -69,8 +69,8 @@ to CloudWatch.
 1. Go to Lambda Console, click **Create function**
 
 1. Select Author from scratch, and enter the following information:
-    - Name: Provide a name for your Lambda function, should be same 
-    - Runtime: To use the sample code provided in this topic, choose Node.js 10.x
+    - Name: Provide a name for your Lambda function
+    - Runtime: To use the sample code provided in this topic, choose **Node.js 10.x**
     - Role: select a role [you previously created](#create-lambda-execution-role)
     ![](assets/create-lambda-1.png)
 
@@ -91,7 +91,8 @@ later
 
 1. Change directory to `src`
 
-1. Edit `config.json` file, you can find these information in AWS Console and Alexa Console
+1. Edit `config.json` file, you can find these information in AWS Console and Alexa 
+Console
 
 1. Run `npm install --production` to install dependencies
 
@@ -102,6 +103,20 @@ these files/directories should be located at the root level of the zip file
 1. Go to AWS Lambda Console, click the lambda function
 
 1. Under **Function code**, click **Upload** to upload the zip file
+
+## Configure Alexa Skill Endpoint
+
+1. Copy the **ARN** of the Lambda Function
+
+1. Go to [Alexa Developer Console](https://developer.amazon.com/alexa/console/ask), select
+the created Smart Home Skill
+
+1. Paste the Lambda ARN in **Default endpoint**
+    ![](assets/alexa-lambda-arn.png)
+
+1. Click the **Save** button in top right corner
+
+
 
 ## Deploy via Serverless Framework
 

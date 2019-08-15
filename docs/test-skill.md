@@ -10,7 +10,7 @@ Now, you can try control the Smart Lamp power status using voice.
 
 1. Try speak `Alexa, turn off <device-friendly-name>` to Alexa App
 
-1. Check you **Smart Lamp Simulator output**
+1. Check your **Smart Lamp Simulator output**
 
 1. Go to [Alexa Developer Console](https://developer.amazon.com/alexa/console/ask), 
 select your Skill

@@ -21,4 +21,6 @@ In the Smart Home service endpoint section, locate the Your Skill ID value and c
 **Copy to clipboard** link to copy and then paste it in a text file.
 The **Skill Id** will be used later.
 
+You do not have to configure any other things yet. 
+
 Next, [Create an App Client in Cognito User Pool](./create-cup-client.md)
