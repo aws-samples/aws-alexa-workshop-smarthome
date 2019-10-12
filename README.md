@@ -1,11 +1,10 @@
-## My Project
+## Alexa Workshop Smart Home - Alexa Backend Lambda
 
-TODO: Fill this README out!
+This is the source code of [Step 7: Create the Alexa Backend Lambda](https://alexaworkshop.com/smart-home/7.create-lambda/).
 
-Be sure to:
+If you are looking for the whole lab, please visit [AWS & Alexa Workshop - Smart Home Skills](https://alexaworkshop.com/smart-home/).
 
-* Change the title in this README
-* Edit your repository description on GitHub
+![](aws_alexa.png)
 
 ## License
 
