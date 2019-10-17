@@ -17,7 +17,7 @@
 const config = require('./config.json');
 
 let AWS = require('aws-sdk');
-AWS.config.update({region: process.env.AWS_REGION || 'us-west-2'});
+AWS.config.update({region: process.env.AWS_REGION || 'us-east-1'});
 const iotdata = new AWS.IotData({endpoint: config.iotEndpoint});
 
 let AlexaResponse = require("./alexa/skills/smarthome/AlexaResponse");
