@@ -1,6 +1,6 @@
 ## Alexa Workshop Smart Home - Alexa Backend Lambda
 
-This is the source code of [Step 7: Create the Alexa Backend Lambda](https://alexaworkshop.com/smart-home/7.create-lambda/).
+This is the source code of [Step 6: CREATE THE ALEXA BACKEND](https://alexaworkshop.com/smart-home/7.create-lambda/).
 
 If you are looking for the whole lab, please visit [AWS & Alexa Workshop - Smart Home Skills](https://alexaworkshop.com/smart-home/).
 

@@ -17,8 +17,8 @@
 const config = require('./config.json');
 
 let AWS = require('aws-sdk');
-AWS.config.update({region: process.env.AWS_REGION || 'us-west-2'});
-const iotdata = new AWS.IotData({endpoint: config.iotEndpoint});
+AWS.config.update({ region: process.env.AWS_REGION || 'us-east-1' });
+const iotdata = new AWS.IotData({ endpoint: config.iotEndpoint });
 
 let AlexaResponse = require("./alexa/skills/smarthome/AlexaResponse");
 const { decodeToken } = require('./auth');
@@ -63,72 +63,65 @@ exports.handler = async function (event, context) {
 
   let namespace = ((event.directive || {}).header || {}).namespace;
 
-  if (namespace.toLowerCase() === 'alexa.authorization') {
-    let aar = new AlexaResponse({"namespace": "Alexa.Authorization", "name": "AcceptGrant.Response",});
-    return sendResponse(aar.get());
-  }
+  switch (namespace.toLowerCase()) {
+    case 'alexa.authorization':
+      let aar = new AlexaResponse({ "namespace": "Alexa.Authorization", "name": "AcceptGrant.Response", });
+      return sendResponse(aar.get());
 
-  if (namespace.toLowerCase() === 'alexa.discovery') {
-    let token = event.directive.payload.scope.token;
-    const { username } = await decodeToken(token);
+    case 'alexa.discovery':
+      const { username } = await decodeToken(event.directive.payload.scope.token);
+      let adr = new AlexaResponse({ "namespace": "Alexa.Discovery", "name": "Discover.Response" });
+      let capability_alexa = adr.createPayloadEndpointCapability();
+      let capability_alexa_powercontroller = adr.createPayloadEndpointCapability({ "interface": "Alexa.PowerController", "supported": [{ "name": "powerState" }] });
 
-    let adr = new AlexaResponse({"namespace": "Alexa.Discovery", "name": "Discover.Response"});
-    let capability_alexa = adr.createPayloadEndpointCapability();
-    let capability_alexa_powercontroller = adr.createPayloadEndpointCapability({"interface": "Alexa.PowerController", "supported": [{"name": "powerState"}]});
+      if (username) {
 
-    if (username) {
+        const devices = await getDevicesByUsername(username);
+        devices.forEach(device => {
+          adr.addPayloadEndpoint({ "friendlyName": "Smart Lamp", "endpointId": device.thingName, "capabilities": [capability_alexa, capability_alexa_powercontroller] });
+        });
+        return sendResponse(adr.get());
+      } else {
 
-      const devices = await getDevicesByUsername(username);
-      devices.forEach(device => {
-        adr.addPayloadEndpoint({"friendlyName": "Smart Lamp", "endpointId": device.thingName, "capabilities": [capability_alexa, capability_alexa_powercontroller]});
-      });
-      return sendResponse(adr.get());
-    } else {
-
-      return sendResponse(adr.get());
-    }
-  }
-
-  if (namespace.toLowerCase() === 'alexa.powercontroller') {
-    let power_state_value = "OFF";
-    if (event.directive.header.name === "TurnOn")
-      power_state_value = "ON";
-
-    let thingName = event.directive.endpoint.endpointId;
-    let token = event.directive.endpoint.scope.token;
-    let correlationToken = event.directive.header.correlationToken;
-
-    const { username } = await decodeToken(token);
-
-    let ar = new AlexaResponse(
-      {
-        "correlationToken": correlationToken,
-        "token": token,
-        "endpointId": thingName
+        return sendResponse(adr.get());
       }
-    );
-    ar.addContextProperty({"namespace":"Alexa.PowerController", "name": "powerState", "value": power_state_value});
 
-    // Check for an error when setting the state
-    let state_set = await updateDeviceState(username, thingName, power_state_value);
-    if (!state_set) {
-      return new AlexaResponse(
+    case 'alexa.powercontroller':
+      let power_state_value = "OFF";
+      if (event.directive.header.name === "TurnOn")
+        power_state_value = "ON";
+
+      let thingName = event.directive.endpoint.endpointId;
+      let correlationToken = event.directive.header.correlationToken;
+
+      //const { username } = await decodeToken(token);
+
+      let ar = new AlexaResponse(
         {
-          "name": "ErrorResponse",
-          "payload": {
-            "type": "ENDPOINT_UNREACHABLE",
-            "message": "Unable to reach endpoint database."
-          }
-        }).get();
-    }
+          "correlationToken": correlationToken,
+          "token": event.directive.endpoint.scope.token,
+          "endpointId": thingName
+        }
+      );
+      ar.addContextProperty({ "namespace": "Alexa.PowerController", "name": "powerState", "value": power_state_value });
 
-    return sendResponse(ar.get());
+      // Check for an error when setting the state
+      let state_set = await updateDeviceState(thingName, power_state_value);
+      if (!state_set) {
+        return new AlexaResponse(
+          {
+            "name": "ErrorResponse",
+            "payload": {
+              "type": "ENDPOINT_UNREACHABLE",
+              "message": "Unable to reach endpoint database."
+            }
+          }).get();
+      }
+      return sendResponse(ar.get());
   }
+}
 
-};
-
-function sendResponse(response)
-{
+function sendResponse (response) {
   // TODO Validate the response
   console.log("index.handler response -----");
   console.log(JSON.stringify(response));
@@ -143,39 +136,18 @@ function sendResponse(response)
  * @param state
  * @returns {Object}
  */
-async function updateDeviceState(username, thingName, state) {
-
-  const ddbParams = {
-    TableName: config.deviceTable,
-    IndexName: "ByUsernameThingName",
-    KeyConditionExpression: "username = :username AND thingName = :thingName",
-    ExpressionAttributeValues: {
-      ':username': username,
-      ':thingName': thingName
-    }
-  };
-
-  const ddbResult = await ddb.query(ddbParams).promise();
-
-  // If can find device, it is a valid device
-  if (ddbResult.Count > 0) {
-    const iotParams = {
-      thingName: thingName,
-      payload: JSON.stringify({
-        state: {
-          desired: {
-            power: state
-          }
+async function updateDeviceState (thingName, state) {
+  const iotParams = {
+    thingName: thingName,
+    payload: JSON.stringify({
+      state: {
+        desired: {
+          powerState: state
         }
-      })
-    };
-
-    return await iotdata.updateThingShadow(iotParams).promise()
-
-  } else {
-    return new Error('No device found')
-  }
-
+      }
+    })
+  };
+  return await iotdata.updateThingShadow(iotParams).promise()
 }
 
 /**
@@ -183,7 +155,7 @@ async function updateDeviceState(username, thingName, state) {
  * @param username
  * @returns {Promise<*>} Array of devices
  */
-async function getDevicesByUsername(username) {
+async function getDevicesByUsername (username) {
   const params = {
     TableName: config.deviceTable,
     IndexName: "ByUsernameThingName",
@@ -197,5 +169,3 @@ async function getDevicesByUsername(username) {
 
   return result.Items;
 }
-
-
