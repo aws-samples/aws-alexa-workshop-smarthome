@@ -9,14 +9,14 @@
   "author": "Joe SHI <qiaoshi@amazon.com>",
   "license": "MIT",
   "dependencies": {
-    "jsonwebtoken": "^8.5.1",
-    "jwk-to-pem": "^2.0.4",
-    "node-fetch": "^2.6.0",
-    "uuid": "^3.4.0"
+    "jsonwebtoken": "8.5.1",
+    "jwk-to-pem": "2.0.4",
+    "node-fetch": "2.6.0",
+    "uuid": "8.3.0"
   },
   "devDependencies": {
-    "aws-sdk": "^2.721.0",
-    "mocha": "^8.0.1",
-    "serverless-plugin-include-dependencies": "^3.2.1"
+    "aws-sdk": "2.734.0",
+    "mocha": "8.1.1",
+    "serverless-plugin-include-dependencies": "3.2.1"
   }
 }
