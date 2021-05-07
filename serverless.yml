@@ -25,7 +25,7 @@ plugins:
 provider:
   name: aws
   state: dev
-  runtime: nodejs10.x
+  runtime: nodejs14.x
   region: us-east-1
 
 # you can add statements to the Lambda function's IAM Role here
