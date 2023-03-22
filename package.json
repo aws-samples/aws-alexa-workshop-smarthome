@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "aws-sdk": "2.734.0",
-    "mocha": "8.4.0",
+    "mocha": "10.2.0",
     "serverless-plugin-include-dependencies": "3.2.1"
   }
 }
