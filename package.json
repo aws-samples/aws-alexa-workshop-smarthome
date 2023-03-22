@@ -9,7 +9,7 @@
   "author": "Joe SHI <qiaoshi@amazon.com>",
   "license": "MIT",
   "dependencies": {
-    "jsonwebtoken": "8.5.1",
+    "jsonwebtoken": "9.0.0",
     "jwk-to-pem": "2.0.4",
     "node-fetch": "2.6.1",
     "uuid": "8.3.0"
